@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Binance P2P Viewer</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Nút Dark Mode -->
+<button id="darkModeToggle" style="position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 8px 14px; border-radius: 10px; cursor: pointer;">
+  🌓 Dark Mode
+</button>
+
+<h2 style="margin-top: 40px;">🔽 Nhập tay dữ liệu khách hàng</h2>
+<table id="manualTable" border="1" cellpadding="8" cellspacing="0" style="width:100%; margin-top: 10px;">
+  <thead>
+    <tr>
+      <th>Khách hàng</th>
+      <th>Số lượng mua</th>
+      <th>Số lượng bán</th>
+      <th>Giá</th>
+      <th>Quy đổi ( VNĐ )</th>
+      <th>Hành động</th>
+    </tr>
+  </thead>
+  <tbody id="manualBody">
+    <tr>
+      <td><input type="text" class="input-customer" /></td>
+      <td><input type="number" step="any" class="input-buy" /></td>
+      <td><input type="number" step="any" class="input-sell" /></td>
+      <td><input type="number" step="any" class="input-price" /></td>
+      <td><input type="text" class="input-result" readonly /></td>
+      <td>
+        <button class="send-btn">📨</button>
+        <button class="delete-btn">🗑</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  <div class="container fade-in">
+    <h1>📊 Binance P2P - Mua/Bán USDT (VND)</h1>
+    <div class="filters">
+      <select id="payment"><option value="">Tất cả phương thức</option><option value="BANK">Ngân hàng</option><option value="MOMO">MoMo</option></select>
+      <div style="display: inline-flex; align-items: center;">
+  <input type="number" id="amount" placeholder="Số tiền (VND)" />
+  <button id="setAmountBtn" title="Đặt 700 triệu">💰</button>
+  <button id="clearAmountBtn" title="Xoá số tiền" style="margin-left: 4px; cursor: pointer;">🗑️</button>
+</div>
+      <select id="payTimeLimit">
+        <option value="">T/g thanh toán</option>
+        <option value="15">15p</option>
+        <option value="30">30p</option>
+        <option value="45">45p</option>
+        <option value="60">60p</option>
+        <option value="360">360p</option>
+      </select>
+      <label><input type="checkbox" id="onlyTradeable" checked /> Giao dịch được</label>
+      <label><input type="checkbox" id="merchantCheck" checked /> Chỉ thương nhân</label>
+      <button onclick="fetchBoth()">🔍 Tìm</button>
+      <select id="refreshRate" onchange="setAutoRefresh()">
+        <option value="0">Tải lại: Thủ công</option>
+        <option value="3000">3s</option>
+        <option value="5000">5s</option>
+        <option value="10000">10s</option>
+        <option value="20000">20s</option>
+        <option value="30000">30s</option>
+        <option value="60000">1p</option>
+      </select>
+    </div>
+
+    <div class="tables slide-in">
+      <div class="table-section glass">
+        <h2>🟢 Mua USDT</h2>
+        <table><thead><tr><th>Giá</th><th>Giới hạn</th><th>Người bán</th><th>Thanh toán</th></tr></thead><tbody id="buyTable"></tbody></table>
+      </div>
+      <div class="table-section glass">
+        <h2>🔴 Bán USDT</h2>
+        <table><thead><tr><th>Giá</th><th>Giới hạn</th><th>Người bán</th><th>Thanh toán</th></tr></thead><tbody id="sellTable"></tbody></table>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+
+
+
+</body>
+</html>
